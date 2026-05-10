@@ -1,0 +1,122 @@
+<div class="container my-5 px-4"> <div class="row justify-content-center">
+    <div class="col-lg-10">
+      
+      <div class="card shadow-lg border-0 bg-dark text-light rounded-4 custom-form-card">
+        <div class="card-body p-4 p-md-5">
+          <h2 class="text-center mb-4 fw-bold text-info border-bottom pb-3">INSCRIPCIÓN A CURSO</h2>
+          
+          <form [formGroup]="inscripcionForm">
+            <div class="row g-4"> <div class="col-md-6">
+                <label for="dni" class="form-label fw-semibold">DNI</label>
+                <input type="text" id="dni" formControlName="dni" class="form-control modern-input" placeholder="Ingrese su documento" />
+              </div>
+
+              <div class="col-md-6">
+                <label for="categoriaAlumno" class="form-label fw-semibold">Categoría</label>
+                <select id="categoriaAlumno" formControlName="categoriaAlumno" class="form-select modern-input" (change)="calcularPrecio()">
+                  <option value="">Seleccione una opción</option>
+                  <option value="1">Estudiante (35% Desc.)</option>
+                  <option value="2">Egresado (50% Desc.)</option>
+                  <option value="3">Particular</option>
+                </select>
+              </div>
+
+              <div class="col-md-6">
+                <label for="email" class="form-label fw-semibold">Email institucional / personal</label>
+                <input id="email" formControlName="email" type="email" class="form-control modern-input" placeholder="nombre@ejemplo.com" />
+              </div>
+
+              <div class="col-md-6">
+                <label for="fechaInscripcion" class="form-label fw-semibold">Fecha de Inscripción</label>
+                <input id="fechaInscripcion" formControlName="fechaInscripcion" type="date" class="form-control modern-input" />
+              </div>
+
+              <div class="col-12">
+                <label for="curso" class="form-label fw-semibold">Curso de Interés</label>
+                <select id="curso" formControlName="curso" class="form-select modern-input" (change)="calcularPrecio()">
+                  <option value="">Seleccione un curso del catálogo</option>
+                  <option value="1">Data Science y Analítica de Datos</option>
+                  <option value="2">Ciberseguridad</option>
+                  <option value="3">Marketing Digital</option>
+                  <option value="4">Cloud Administración y Arquitectura</option>
+                  <option value="5">Programación y Desarrollo de Software</option>
+                  <option value="6">Inteligencia Artificial (IA) y Machine Learning</option>
+                </select>
+              </div>
+
+              <div class="col-12 mt-4" *ngIf="inscripcionForm.value.curso">
+                <div class="d-flex justify-content-between align-items-center bg-secondary bg-opacity-25 p-3 rounded-3 border-start border-info border-4">
+                  <div>
+                    <p class="mb-0 text-secondary small text-uppercase fw-bold">Precio Base</p>
+                    <h5 class="mb-0">{{ preciosCursos[inscripcionForm.value.curso] | currency:'ARS ' }}</h5>
+                  </div>
+                  <div class="text-end" *ngIf="precioFinal !== null">
+                    <p class="mb-0 text-info small text-uppercase fw-bold">Precio Final con Descuento</p>
+                    <h3 class="mb-0 text-success fw-bold">{{ precioFinal | currency:'ARS ' }}</h3>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-12 mt-4 text-center">
+                <button type="button" 
+                        class="btn btn-modern-submit w-100 py-3 fw-bold text-uppercase shadow" 
+                        (click)="registrarInscripcion()"
+                        [disabled]="inscripcionForm.invalid">
+                  Confirmar Inscripción
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="mt-5" *ngIf="inscripciones.length > 0">
+    <h3 class="text-light mb-4 d-flex align-items-center">
+        <i class="bi bi-journal-text me-2"></i> Historial de Inscripciones
+    </h3>
+    <div class="table-responsive shadow-lg rounded-3 overflow-hidden">
+      <table id="miTabla" class="table table-dark table-hover align-middle mb-0">
+        <thead class="table-info text-dark">
+          <tr>
+            <th>DNI</th>
+            <th>Precio Base</th>
+            <th>Categoría</th>
+            <th>Precio Final</th>
+            <th>Fecha</th>
+            <th>Email</th>
+            <th>Curso</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let inscripcion of inscripciones">
+            <td class="fw-bold">{{ inscripcion.dni }}</td>
+            <td>{{ inscripcion.precio | currency:'ARS ' }}</td>
+            <td>
+              <span class="badge" [ngClass]="{
+                'bg-primary': inscripcion.categoriaAlumno == 1,
+                'bg-success': inscripcion.categoriaAlumno == 2,
+                'bg-secondary': inscripcion.categoriaAlumno == 3
+              }">
+                {{ inscripcion.categoriaAlumno == 1 ? 'Estudiante' :
+                   inscripcion.categoriaAlumno == 2 ? 'Egresado' : 'Particular' }}
+              </span>
+            </td>
+            <td class="text-info fw-bold">{{ inscripcion.precioFinal | currency:'ARS ' }}</td>
+            <td>{{ inscripcion.fechaInscripcion | date:'dd/MM/yyyy' }}</td>
+            <td class="small">{{ inscripcion.email }}</td>
+            <td class="small text-truncate" style="max-width: 150px;">
+                {{ inscripcion.curso == 1 ? 'Data Science' :
+                   inscripcion.curso == 2 ? 'Ciberseguridad' :
+                   inscripcion.curso == 3 ? 'Marketing' :
+                   inscripcion.curso == 4 ? 'Cloud' :
+                   inscripcion.curso == 5 ? 'Programación' : 'IA & ML' }}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

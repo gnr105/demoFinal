@@ -2,7 +2,8 @@
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "version": 1,
   "cli": {
-    "packageManager": "npm"
+    "packageManager": "npm",
+    "analytics": "7f8e6434-2752-4aac-8108-29875366eb4d"
   },
   "newProjectRoot": "projects",
   "projects": {
@@ -19,14 +20,17 @@
             "browser": "src/main.ts",
             "tsConfig": "tsconfig.app.json",
             "assets": [
-              {
-                "glob": "**/*",
-                "input": "public"
-              }
+                "src/favicon.ico",
+                "src/assets"
             ],
             "styles": [
-              "src/styles.css"
-            ]
+                        "node_modules/bootstrap/dist/css/bootstrap.min.css", 
+                        "src/styles.css",
+                        "node_modules/bootstrap-icons/font/bootstrap-icons.css"
+            ],
+            "scripts": ["node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"        
+            ],
+            "polyfills": ["@angular/localize/init"]
           },
           "configurations": {
             "production": {

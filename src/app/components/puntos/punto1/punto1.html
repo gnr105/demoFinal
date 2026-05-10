@@ -1,0 +1,26 @@
+<div class="carousel-container">
+  <!-- Uso de *ngIf clásico -->
+  <ngb-carousel *ngIf="noticias && noticias.length > 0" 
+                [showNavigationArrows]="true" 
+                [showNavigationIndicators]="true" 
+                [interval]="5000" 
+                [pauseOnHover]="false">
+    
+    <!-- Uso de *ngFor clásico -->
+    <ng-template ngbSlide *ngFor="let noticia of noticias">
+      <div class="carousel-image-wrapper">
+        <img [src]="noticia.imagen" [alt]="noticia.titulo" class="d-block w-100 main-img">
+        <div class="overlay"></div>
+      </div>
+      
+      <div class="carousel-caption custom-caption">
+        <h2 class="title-glow">{{ noticia.titulo }}</h2>
+        <p class="description-border">{{ noticia.descripcion }}</p>
+        <button class="btn btn-outline-cyan mt-3">LEER MÁS</button>
+      </div>
+    </ng-template>
+    
+  </ngb-carousel>
+</div>
+
+

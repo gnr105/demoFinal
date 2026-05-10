@@ -1,0 +1,47 @@
+<div class="container text-center mt-5">
+  
+  <!-- Panel de Estadísticas (HUD) -->
+  <div class="stats mb-4 p-3 rounded shadow-sm bg-dark border-cyan">
+    <div *ngIf="gameStarted && !gameOver">
+      <h2 class="text-white">Intentos restantes: <span class="text-info">{{ attemptsLeft }}</span></h2>
+    </div>
+    <div *ngIf="gameWon">
+      <h2 class="text-success animate-bounce">¡Felicidades! Ganaste 🎉</h2>
+    </div>
+    <div *ngIf="gameOver && !gameWon">
+      <h2 class="text-danger">Game Over ❌</h2>
+    </div>
+  </div>
+
+  <!-- Botones de Control con Bootstrap -->
+  <div class="controls mb-5 d-flex justify-content-center gap-3">
+    <button class="btn btn-outline-info btn-lg fw-bold" (click)="iniciar()" [disabled]="gameStarted">
+      INICIAR
+    </button>
+    <button class="btn btn-outline-warning btn-lg fw-bold" (click)="intentar()" 
+            [disabled]="!gameStarted || gameOver || canFlip || selectedCards.length > 0">
+      INTENTAR
+    </button>
+    <button class="btn btn-outline-danger btn-lg fw-bold" (click)="reiniciar()">
+      REINICIAR
+    </button>
+  </div>
+
+  <!-- Tablero de Juego -->
+  <div class="game-container" [style.opacity]="gameStarted ? 1 : 0.4">
+    <!-- Usamos *ngFor clásico -->
+    <div class="card-wrapper" *ngFor="let card of cards; let i = index" (click)="activate(i)">
+      <div class="game-card" [class.active]="card.active">
+        
+        <!-- Parte trasera (Dorso) -->
+        <div class="back"></div>
+        
+        <!-- Parte frontal (Emoji) -->
+        <div class="face">
+          {{ card.value }}
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>

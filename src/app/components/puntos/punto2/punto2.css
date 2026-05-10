@@ -1,0 +1,28 @@
+.card{
+    box-shadow: 0 4px 8px 0 rgba(218, 201, 201, 0.53);
+    background-color: #ebd5d5;
+    opacity: 2;
+}
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    filter: brightness(1.05);
+    border-color: #ccc;
+}
+.card-img-top {
+    height: 200px;
+    object-fit: cover;
+}
+.boton{
+    background-color: #61f726;
+}
+.boton:hover{
+    background-color: #e3ce71;
+}
+.boton2{
+    background-color: #e371b7;
+}
+.boton2:hover{
+    background-color: #e3ce71;
+}
+

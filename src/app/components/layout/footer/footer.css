@@ -1,0 +1,62 @@
+/* Fondo similar al header */
+footer {
+    background-color: rgba(18, 18, 18, 0.95);
+    backdrop-filter: blur(10px);
+    border-top: 2px solid #05d1fe; /* Línea de acento cian arriba */
+    color: #e0e0e0;
+}
+
+h5.font-weight-bold {
+    letter-spacing: 2px;
+    background: linear-gradient(to right, #ffffff, #05d1fe);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* Estilo para los botones de redes sociales */
+.btn-floating {
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    line-height: 40px;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+    border-color: #05d1fe; /* Borde cian */
+    color: #05d1fe;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+}
+
+.btn-floating:hover {
+    background-color: #05d1fe;
+    color: #121212 !important;
+    transform: translateY(-3px);
+    box-shadow: 0 4px 15px rgba(5, 209, 254, 0.4);
+}
+
+/* Estilo para el input de suscripción */
+.form-control {
+    background-color: rgba(255, 255, 255, 0.05);
+    border: 1px solid #333;
+    color: white;
+}
+
+.form-control:focus {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-color: #05d1fe;
+    color: white;
+    box-shadow: none;
+}
+
+.btn-primary {
+    background-color: #05d1fe;
+    border: none;
+    color: #121212;
+    font-weight: bold;
+}
+
+.btn-primary:hover {
+    background-color: #04b3db;
+}

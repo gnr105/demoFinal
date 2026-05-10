@@ -1,0 +1,24 @@
+<div class="main-wrapper py-5">
+  <div class="container">
+    <div class="row g-4">
+      <div class="col-lg-6 col-md-12" *ngFor="let card of cards">
+        <div class="card h-100 custom-card">
+          <div class="img-container">
+            <img [src]="card.imageUrl" class="card-img-top" [alt]="card.title">
+            <div class="img-overlay"></div>
+          </div>
+          <div class="card-body">
+            <h5 class="card-title">{{ card.title }}</h5>
+            <p class="card-text">{{ card.description }}</p>
+            
+            <a [routerLink]="card.redirectUrl" class="btn-modern">
+              {{ card.buttonText || 'Ir' }}
+              <i class="bi bi-arrow-right"></i>
+            </a>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
