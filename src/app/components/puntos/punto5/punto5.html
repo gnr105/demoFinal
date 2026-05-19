@@ -1,0 +1,102 @@
+<div class="container my-5 px-4">
+  <div class="row justify-content-center">
+    <div class="col-lg-10">
+      
+      <div class="card shadow-lg border-0 bg-dark text-light rounded-4 custom-form-card">
+        <div class="card-body p-4 p-md-5">
+          <h2 class="text-center mb-4 fw-bold text-info border-bottom pb-3">GESTIÓN DE INSCRIPCIÓN</h2>
+          
+          <form [formGroup]="inscripcionForm">
+            <div class="row g-4">
+              
+              <div class="col-md-6">
+                <label for="dni" class="form-label fw-semibold">DNI del Alumno</label>
+                <input type="text" id="dni" formControlName="dni" class="form-control modern-input" placeholder="Ej: 38123456" />
+              </div>
+
+              <div class="col-md-6">
+                <label for="email" class="form-label fw-semibold">Email Contacto</label>
+                <input id="email" formControlName="email" type="email" class="form-control modern-input" placeholder="correo@ejemplo.com" />
+              </div>
+
+              <div class="col-md-6">
+                <label for="precioBase" class="form-label fw-semibold">Precio Base del Curso ($)</label>
+                <input id="precioBase" type="number" formControlName="precioBase" class="form-control modern-input" placeholder="Ingrese monto" (input)="calcularPrecio()" />
+              </div>
+
+              <div class="col-md-6">
+                <label for="categoriaAlumno" class="form-label fw-semibold">Categoría (Descuento)</label>
+                <select id="categoriaAlumno" formControlName="categoriaAlumno" class="form-select modern-input" (change)="calcularPrecio()">
+                  <option value="">Seleccione categoría</option>
+                  <option value="1">Estudiante (35% Desc.)</option>
+                  <option value="2">Egresado (50% Desc.)</option>
+                  <option value="3">Particular (Sin Desc.)</option>
+                </select>
+              </div>
+
+              <div class="col-md-6">
+                <label for="curso" class="form-label fw-semibold">Curso</label>
+                <select id="curso" formControlName="curso" class="form-select modern-input">
+                  <option value="">Seleccione un curso</option>
+                  <option value="1">Data Science</option>
+                  <option value="2">Ciberseguridad</option>
+                  <option value="3">Marketing Digital</option>
+                  <option value="4">Cloud Administration</option>
+                  <option value="5">Programación</option>
+                  <option value="6">Inteligencia Artificial</option>
+                </select>
+              </div>
+
+              <div class="col-md-6">
+                <label for="fechaInscripcion" class="form-label fw-semibold">Fecha</label>
+                <input id="fechaInscripcion" formControlName="fechaInscripcion" type="date" class="form-control modern-input" />
+              </div>
+
+              <div class="col-12 mt-4" *ngIf="precioFinal !== null">
+                <div class="d-flex justify-content-between align-items-center bg-info bg-opacity-10 p-3 rounded-3 border-start border-info border-4">
+                  <span class="text-light fw-bold uppercase">Total a Cobrar:</span>
+                  <h3 class="mb-0 text-success fw-bold">{{ precioFinal | currency:'ARS ' }}</h3>
+                </div>
+              </div>
+
+              <div class="col-12 mt-4">
+                <button type="button" class="btn btn-modern-submit w-100 py-3 fw-bold shadow" 
+                        (click)="registrarInscripcion()" [disabled]="inscripcionForm.invalid || precioFinal === null">
+                  REGISTRAR INSCRIPCIÓN
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="mt-5" *ngIf="inscripciones.length > 0">
+    <div class="table-responsive shadow-lg rounded-3">
+      <table id="miTabla" class="table table-dark table-hover mb-0">
+        <thead class="table-info text-dark">
+          <tr>
+            <th>DNI</th>
+            <th>Precio Base</th>
+            <th>Categoría</th>
+            <th>Precio Final</th>
+            <th>Email</th>
+            <th>Curso</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let ins of inscripciones">
+            <td>{{ ins.dni }}</td>
+            <td>{{ ins.precio | currency:'ARS ' }}</td>
+            <td>{{ ins.categoriaAlumno == 1 ? 'Estudiante' : ins.categoriaAlumno == 2 ? 'Egresado' : 'Particular' }}</td>
+            <td class="text-info fw-bold">{{ ins.precioFinal | currency:'ARS ' }}</td>
+            <td>{{ ins.email }}</td>
+            <td>Curso {{ ins.curso }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
